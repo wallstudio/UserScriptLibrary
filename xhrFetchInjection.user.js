@@ -11,10 +11,10 @@ console.log("XhrFetchInjection prepared injectXHR");
 injectFetch = function(action)
 {
     let base_fetch = fetch;
-    fetch = function(args)
+    fetch = function(input, init)
     {
         let url = args ? args.url : "";
-        return action(url, args, _args => base_fetch(_args));
+        return action(url, arguments, _args => base_fetch(_args));
     };
 };
 console.log("XhrFetchInjection prepared injectFetch");
