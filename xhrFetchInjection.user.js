@@ -13,8 +13,8 @@ injectFetch = function(action)
     let base_fetch = fetch;
     fetch = function(input, init)
     {
-        let url = args ? args.url : "";
-        return action(url, arguments, _args => base_fetch(_args));
+        let url = input ? input.url : "";
+        return action(url, arguments, _args => base_fetch(_args[0], _args[1]));
     };
 };
 console.log("XhrFetchInjection prepared injectFetch");
