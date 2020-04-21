@@ -6,6 +6,7 @@ injectXHR = function(action)
         return action(url, arguments, _args => base_open.apply(this, _args));
     };
 };
+console.log("XhrFetchInjection prepared injectXHR");
 
 injectFetch = function(action)
 {
@@ -15,3 +16,4 @@ injectFetch = function(action)
         return action(args.url, args, _args => base_fetch(_args));
     };
 };
+console.log("XhrFetchInjection prepared injectFetch");
