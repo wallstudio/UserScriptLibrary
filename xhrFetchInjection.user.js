@@ -1,20 +1,22 @@
-injectXHR = function(action)
+injectXHR = function(awaitableAction)
 {
     let base_open = XMLHttpRequest.prototype.open;
-    XMLHttpRequest.prototype.open = function(method, url, async, user, password)
+    XMLHttpRequest.prototype.open = async function(method, url, async, user, password)
     {
-        return action(url, arguments, _args => base_open.apply(this, _args));
+        const _args = await awaitableAction(url, arguments);
+        base_open.apply(this, _args);
     };
+    console.log("Injected XHR " + awaitableAction);
 };
-console.log("XhrFetchInjection prepared injectXHR");
 
-injectFetch = function(action)
+injectFetch = function(awaitableAction)
 {
     let base_fetch = fetch;
-    fetch = function(input, init)
+    fetch = async function(input, init)
     {
         let url = input ? input.url : "";
-        return action(url, arguments, _args => base_fetch(_args[0], _args[1]));
+        const _args = await awaitableAction(url, arguments);
+        return base_fetch(_args[0], _args[1]);
     };
+    console.log("Injected Fetch " + awaitableAction);
 };
-console.log("XhrFetchInjection prepared injectFetch");
