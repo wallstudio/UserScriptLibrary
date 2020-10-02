@@ -22,7 +22,7 @@ class XHROpenArgs
 	 */
 	toArray()
 	{
-		return [this.method, this.url, this.async, this.username, this.password];
+		return [this.method, this.url, this.async, this.username, this.password].filter(a => a !== undefined);
 	}
 }
 
@@ -43,7 +43,7 @@ class FetchArgs
 	 */
 	toArray()
 	{
-		return [this.input, this.init];
+		return [this.input, this.init].filter(a => a !== undefined);
 	}
 }
 
