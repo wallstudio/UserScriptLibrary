@@ -2,12 +2,13 @@ class IO
 {
 	/**
 	 * @param {string} fileName 
-	 * @param {string} subType 
+	 * @param {string} mime 
 	 * @param {string} body 
 	 */
-	static saveText(fileName, subType, body)
+	static saveText(fileName, mime, body)
 	{
-		const blob = new Blob([body], {type: `text/${subType}`});
+		mime = mime.includes('/') ? mime : `text/${mime}`;
+		const blob = new Blob([body], {type: mime});
 		this.saveBinary(fileName, blob);
 	}
 
